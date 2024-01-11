@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ni12eogyokx5"]
+
+[ext_resource type="Texture2D" uid="uid://byjv4rhffkupe" path="res://components/shared/tilesheet.png" id="1_oolkb"]
+
+[resource]
+atlas = ExtResource("1_oolkb")
+region = Rect2(11, 523, 42, 43)
+filter_clip = true

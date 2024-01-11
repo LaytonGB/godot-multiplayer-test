@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://bkawbthsloj14"]
+
+[ext_resource type="Script" path="res://components/player/player.gd" id="1_vmb4t"]
+[ext_resource type="Texture2D" uid="uid://ni12eogyokx5" path="res://components/player/player_sprite_texture.tres" id="2_o1ahb"]
+[ext_resource type="Script" path="res://components/player/MultiplayerSynchronizer.gd" id="4_4tkbk"]
+[ext_resource type="Script" path="res://components/player/player_input.gd" id="5_3c4am"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sb6j0"]
+radius = 21.0
+
+[sub_resource type="Gradient" id="Gradient_oh7th"]
+offsets = PackedFloat32Array(0.233766, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ikm37"]
+gradient = SubResource("Gradient_oh7th")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_835ha"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:player")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jivx7"]
+properties/0/path = NodePath("PlayerInput:direction")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_vmb4t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_o1ahb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sb6j0")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(4.76837e-07, 0.499992)
+scale = Vector2(8, 8)
+blend_mode = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_ikm37")
+height = 256.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_835ha")
+script = ExtResource("4_4tkbk")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_jivx7")
+script = ExtResource("5_3c4am")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://biirs8sa0b0a3"]
+
+[ext_resource type="Script" path="res://components/initial_test/initial_test.gd" id="1_rq1oi"]
+[ext_resource type="PackedScene" uid="uid://ddc5n47d7rgd4" path="res://components/proto-level/level.tscn" id="1_td23p"]
+
+[node name="InitialTest" type="Node2D"]
+script = ExtResource("1_rq1oi")
+
+[node name="Level" parent="." instance=ExtResource("1_td23p")]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+blend_mode = 1
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="SpawnAreaCenter" type="Marker2D" parent="."]
+position = Vector2(576, 256)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://components/player/player.tscn")
+spawn_path = NodePath("../Players")
